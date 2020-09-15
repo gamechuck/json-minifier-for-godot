@@ -3,7 +3,48 @@
 This simple asset makes it possible to load json with comments ([jsonc](https://github.com/Microsoft/node-jsonc-parser)) into Godot.
 The JSON minifier removes all comments from a jsonc so it can be correctly parsed afterwards by Godot's parse_json() without error.
 
-## Example:
+## Example *.jsonc*-file
+
+```JSONC
+{
+    // This is my array of animals for my zoo!
+    "animals": [
+        {
+            "tiger": {
+                "amount": 2
+            },
+            "pelican": {
+                "amount": 69 // nice
+            },
+            // Unicorns don't exist!
+            /*
+            "unicorn": {
+                "amount": 1
+            }
+            */
+        }
+    ]
+}
+```
+
+Which, after going though .minify_json, will be stripped of comments as such:
+
+```JSON
+{
+    "animals": [
+        {
+            "tiger": {
+                "amount": 2
+            },
+            "pelican": {
+                "amount": 69
+            },
+        }
+    ]
+}
+```
+
+## Example usage:
 
 ```Swift
 static func load_JSON(path : String) -> Dictionary:
