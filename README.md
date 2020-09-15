@@ -47,26 +47,22 @@ Which, after going though .minify_json, will be stripped of comments as such:
 ## Example usage:
 
 ```Swift
-static func load_JSON(path : String) -> Dictionary:
-    var file : File = File.new()
-	var dictionary := {}
+static func load_JSON(path : String):
+	var file : File = File.new()
 	var error : int = file.open(path, File.READ)
 	if error == OK:
 		var text : String = file.get_as_text()
-        text = JSONMinifier.minify_json(text)
 		file.close()
-		if typeof(parse_json(text)) != TYPE_NIL:
-			dictionary = parse_json(text)
-			if dictionary == null:
-				push_error("Detected null-value in JSON at {0}.".format([path]))
-			else:
-				return dictionary
-
-		push_error("Failed to correctly process '{0}', check file format!".format([path]))
-		return {}
-	else:
-		push_error("Failed to open '{0}', check file availability!".format([path]))
-		return {}
+		text = JSONMinifier.minify_json(text)
+		var parse_result = parse_json(text)
+		if parse_result is Array or parse_result is Dictionary:
+			return parse_result
+		else:
+      			push_error("Failed to correctly process '{0}', check file format!".format([path]))
+      			return {}
+  	else:
+    		push_error("Failed to open '{0}', check file availability!".format([path]))
+    		return {}
 ```
 
 # Credits
