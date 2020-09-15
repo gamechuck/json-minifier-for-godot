@@ -1,0 +1,5 @@
+# Files kept out from the releases.
+.gitattributes export-ignore
+README.md export-ignore
+CHANGELOG.md export-ignore
+icon.png export-ignore
