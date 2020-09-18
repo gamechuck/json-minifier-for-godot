@@ -1,5 +1,5 @@
 # Files kept out from the releases.
 .gitattributes export-ignore
 README.md export-ignore
-LICENSE export-ignore
+/LICENSE export-ignore
 icon.png export-ignore
