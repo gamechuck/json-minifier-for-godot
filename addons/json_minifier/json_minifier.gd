@@ -1,6 +1,7 @@
 ###############################################################################
 # JSON Minifier                                                               #
-# Copyright (C) 2020 Gamechuck & Piet Bronders                                #
+# Copyright © 2020 Kyle Simpson <getify@gmail.com>                            #
+# Adopted to Godot by Piet Bronders                                           #
 #-----------------------------------------------------------------------------#
 
 class_name JSONMinifier
@@ -13,7 +14,7 @@ static func minify_json(string : String, strip_space: bool = true) -> String:
 	var tokenizer = RegEx.new()
 	tokenizer.compile('\\"|(/\\*)|(\\*/)|(//)|\n|\r')
 	var end_slashes_re = RegEx.new()
-	end_slashes_re.compile('(\/)*$')
+	end_slashes_re.compile('(\\\\)*$')
 
 	var in_string := false
 	var in_multi := false
@@ -43,7 +44,7 @@ static func minify_json(string : String, strip_space: bool = true) -> String:
 			var escaped : RegExMatch = end_slashes_re.search(string, 0, reg_ex_match.get_start())
 
 			# start of string or unescaped quote character to end string
-			if not in_string or (escaped == null or len(escaped.get_string()) % 2 == 0):  # noqa
+			if not in_string or (escaped.get_string().empty() or len(escaped.get_string()) % 2 == 0):  # noqa
 				in_string = not in_string
 			index -= 1  # include " character in next catch
 		elif not (in_string or in_multi or in_single):
