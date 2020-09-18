@@ -6,7 +6,7 @@
 class_name JSONMinifier
 
 # Takes a JSON in string format and removes all the comments and white space.
-static func json_minify(string : String, strip_space: bool = true) -> String:
+static func minify_json(string : String, strip_space: bool = true) -> String:
 	# Let's iterate on every match for each token
 	# This is actually a tokenization
 	# Tokens of interest are ", /*, */, //, \n, \r, \t, and space
